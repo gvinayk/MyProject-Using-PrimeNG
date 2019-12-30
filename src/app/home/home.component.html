@@ -1,0 +1,40 @@
+<div class="ui-g ui-fluid">
+    <!-- Search by title input field -->
+    <div class="ui-g-12 ui-md-3">
+        <div class="ui-inputgroup">
+            <input type="text" 
+                   pInputText 
+                   [(ngModel)]="SearchByTitle"
+                   placeholder="Search By Title" >
+        </div>
+    </div>
+    <!-- table data from the Given API -->
+    <div class="ui-g-12">
+    <p-table [value]="recievedDataFromAPI | filter : SearchByTitle">
+        <ng-template pTemplate="header">
+            <tr>
+                <th>Title</th>
+                <th>URL</th>
+                <th>Created at</th>
+                <th>Author</th>
+            </tr>
+        </ng-template>
+        <ng-template pTemplate="body" let-RowDetails>
+            <tr (click)="ShowModelToView(RowDetails)">
+                <td>{{RowDetails.title}}</td>
+                <td>{{RowDetails.url}}</td>
+                <td>{{RowDetails.created_at}}</td>
+                <td>{{RowDetails.author}}</td>
+            </tr>
+        </ng-template>
+    </p-table>
+    </div>
+</div>
+    <!-- Model pop up of selected Row Json data from API -->
+<p-dialog header="Selected Data from the Table"
+          [modal]="true"
+          [(visible)]="display"
+          [dismissableMask]="true"
+          [style]="{width:'70%'}">
+    {{poppedData | json}}
+</p-dialog>
